@@ -50,7 +50,7 @@ public class TripControllerTest {
                 .content(json);
 
         mvc.perform(request)
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
