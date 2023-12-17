@@ -1,5 +1,7 @@
 package mxhtechnology.travelhelptripapp.controller.impl;
+
 import mxhtechnology.travelhelptripapp.controller.TripController;
+import mxhtechnology.travelhelptripapp.dto.TripByIdDTO;
 import mxhtechnology.travelhelptripapp.dto.TripCreateDTO;
 import mxhtechnology.travelhelptripapp.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +18,14 @@ public class TripControllerImpl implements TripController {
     @Override
     public ResponseEntity<String> createTrip(TripCreateDTO dto) {
         return new ResponseEntity(tripService.createTrip(dto), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<TripByIdDTO> findTrip(String id, String userId) {
+        var response = tripService.findById(id, userId);
+        if (response != null)
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        else
+            return new ResponseEntity("Not found", HttpStatus.NOT_FOUND);
     }
 }
