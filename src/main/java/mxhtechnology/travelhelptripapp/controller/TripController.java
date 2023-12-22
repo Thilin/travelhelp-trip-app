@@ -28,4 +28,10 @@ public interface TripController {
     ResponseEntity<TripByIdDTO> findTrip(
             @RequestParam String id,
             @RequestParam String userId);
+
+    @Operation(summary = "Delete Trip", description = "Find a Trip by Id and delete it")
+    @DeleteMapping(produces = APPLICATION_JSON_VALUE)
+    ResponseEntity<TripByIdDTO> deleteTrip(
+            @RequestParam String id,
+            @RequestParam String userId);
 }

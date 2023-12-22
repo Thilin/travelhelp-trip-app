@@ -28,4 +28,9 @@ public class TripRepositoryImpl implements TripRepository {
     public Trip findById(String id, String userId) {
         return mapper.load(Trip.class, id, userId);
     }
+
+    @Override
+    public void delete(Trip trip) {
+        mapper.delete(trip);
+    }
 }

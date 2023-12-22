@@ -7,4 +7,6 @@ public interface TripRepository {
     String save(Trip trip);
 
     Trip findById(String id, String userId);
+
+    void delete(Trip trip);
 }

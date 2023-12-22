@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import mxhtechnology.travelhelptripapp.dto.TripByIdDTO;
 import mxhtechnology.travelhelptripapp.dto.TripCreateDTO;
 import mxhtechnology.travelhelptripapp.service.TripService;
+import org.apiguardian.api.API;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -103,6 +104,39 @@ public class TripControllerTest {
 
         mvc.perform(request)
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Should delete a trip")
+    public void deleteTripTest() throws Exception{
+        var getTrip = TripByIdDTO.builder()
+                .country("teste")
+                .state("teste")
+                .city("teste")
+                .tripName("teste")
+                .observations("teste")
+                .build();
+
+        BDDMockito.given(tripService.findById(Mockito.anyString(), Mockito.anyString())).willReturn(getTrip);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(TRIP_API+"?id=3c8bd703-6c42-4853-8b08-e79744cc89b8&userId=1412-12512sanv");
+
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("Should return NOT FOUND when trying to delete a trip")
+    public void deleteinexistentTripTest() throws Exception{
+        BDDMockito.given(tripService.findById(Mockito.anyString(), Mockito.anyString())).willReturn(null);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(TRIP_API+"?id=3c8bd703-6c42-4853-8b08-e79744cc89b8&userId=1412-12512sanv");
+
+        mvc.perform(request)
+                .andExpect(status().isNotFound());
+
     }
 
     private TripCreateDTO tripBuilder(){

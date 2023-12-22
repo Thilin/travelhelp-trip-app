@@ -47,4 +47,11 @@ public class TripServiceImpl implements TripService {
         }
         return null;
     }
+
+    @Override
+    public void deleteTrip(Trip trip) {
+        if(trip == null || trip.getId() == null)
+            throw new IllegalArgumentException("Trip id cant be null");
+        tripRepository.delete(trip);
+    }
 }

@@ -4,10 +4,12 @@ import mxhtechnology.travelhelptripapp.dto.TripCreateDTO;
 import mxhtechnology.travelhelptripapp.entity.Trip;
 import mxhtechnology.travelhelptripapp.infrastructure.aws.dynamodb.repository.TripRepository;
 import mxhtechnology.travelhelptripapp.service.impl.TripServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -68,6 +70,26 @@ public class TripServiceTest {
         var tripFound = tripService.findById(pk, sk);
 
         assertThat(tripFound).isNull();
+    }
+
+    @Test
+    @DisplayName("Should delete a trip")
+    public void deleteTripTest(){
+        var trip = tripBuilder();
+
+        Assertions.assertDoesNotThrow(() -> tripService.deleteTrip(trip));
+
+        Mockito.verify(tripRepository, Mockito.times(1)).delete(trip);
+    }
+
+    @Test
+    @DisplayName("Shuold throws an error when trying to delete a trip inexistent")
+    public void deleteInvalidTripTest(){
+        var trip = new Trip();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> tripService.deleteTrip(trip));
+
+        Mockito.verify(tripRepository, Mockito.never()).delete(trip);
     }
 
 

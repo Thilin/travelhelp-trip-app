@@ -3,21 +3,40 @@
   "KeySchema": [
     {
       "KeyType": "HASH",
-      "AttributeName": "pk"
+      "AttributeName": "id"
     },
     {
       "KeyType": "RANGE",
-      "AttributeName": "sk"
+      "AttributeName": "user_id"
     }
   ],
   "AttributeDefinitions": [
     {
-      "AttributeName": "pk",
+      "AttributeName": "id",
       "AttributeType": "S"
     },
     {
-      "AttributeName": "sk",
+      "AttributeName": "user_id",
       "AttributeType": "S"
+    }
+  ],
+  "GlobalSecondaryIndexes": [
+    {
+
+      "IndexName": "user_id-index",
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "WriteCapacityUnits": 5,
+        "ReadCapacityUnits": 10
+      },
+      "KeySchema": [
+        {
+          "KeyType": "HASH",
+          "AttributeName": "user_id"
+        }
+      ]
     }
   ],
   "ProvisionedThroughput":{

@@ -28,4 +28,14 @@ public class TripControllerImpl implements TripController {
         else
             return new ResponseEntity("Not found", HttpStatus.NOT_FOUND);
     }
+
+    @Override
+    public ResponseEntity<TripByIdDTO> deleteTrip(String id, String userId) {
+        var response = tripService.findById(id, userId);
+        if (response != null) {
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        }
+        else
+            return new ResponseEntity("Not found", HttpStatus.NOT_FOUND);
+    }
 }
