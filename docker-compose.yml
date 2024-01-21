@@ -22,4 +22,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       #- ./data/localstack/data:/localstack/data
       - ./script/localstack/dynamodb:/localstack/tables
-      - .\script\localstack\dynamodb\init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh
+      - ./script/localstack/dynamodb/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh
