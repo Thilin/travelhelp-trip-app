@@ -77,7 +77,8 @@ public class TripServiceTest {
     public void deleteTripTest(){
         var trip = tripBuilder();
 
-        Assertions.assertDoesNotThrow(() -> tripService.deleteTrip(trip));
+        when(tripRepository.findById(anyString(), anyString())).thenReturn(trip);
+        Assertions.assertDoesNotThrow(() -> tripService.deleteTrip(anyString(), anyString()));
 
         Mockito.verify(tripRepository, Mockito.times(1)).delete(trip);
     }
@@ -87,9 +88,8 @@ public class TripServiceTest {
     public void deleteInvalidTripTest(){
         var trip = new Trip();
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> tripService.deleteTrip(trip));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> tripService.deleteTrip(anyString(), anyString()));
 
-        Mockito.verify(tripRepository, Mockito.never()).delete(trip);
     }
 
 

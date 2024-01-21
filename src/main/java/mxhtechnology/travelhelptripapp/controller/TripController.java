@@ -4,11 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mxhtechnology.travelhelptripapp.dto.TripByIdDTO;
 import mxhtechnology.travelhelptripapp.dto.TripCreateDTO;
+import mxhtechnology.travelhelptripapp.entity.Trip;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -34,4 +37,7 @@ public interface TripController {
     ResponseEntity<TripByIdDTO> deleteTrip(
             @RequestParam String id,
             @RequestParam String userId);
+
+    @GetMapping(value = "/list")
+    ResponseEntity<List<Trip>> listAll(@RequestParam String pk, @RequestParam String sk);
 }

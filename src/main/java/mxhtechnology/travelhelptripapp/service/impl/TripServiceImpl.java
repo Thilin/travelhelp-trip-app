@@ -7,6 +7,9 @@ import mxhtechnology.travelhelptripapp.infrastructure.aws.dynamodb.repository.Tr
 import mxhtechnology.travelhelptripapp.service.TripService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class TripServiceImpl implements TripService {
 
@@ -19,7 +22,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public String createTrip(TripCreateDTO dto) {
         var trip = new Trip();
-        trip.setUserId(dto.getUserId());
+        trip.setUserId(dto.getUserId()+"-"+ UUID.randomUUID().toString());
         trip.setTripName(dto.getTripName());
         trip.setCity(dto.getCity());
         trip.setState(dto.getState());
@@ -49,9 +52,15 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void deleteTrip(Trip trip) {
+    public void deleteTrip(String id, String userId) {
+        var trip = tripRepository.findById(id, userId);
         if(trip == null || trip.getId() == null)
             throw new IllegalArgumentException("Trip id cant be null");
         tripRepository.delete(trip);
+    }
+
+    @Override
+    public List<Trip> listAll(String pk, String sk) {
+        return tripRepository.listByUser(pk, sk);
     }
 }
