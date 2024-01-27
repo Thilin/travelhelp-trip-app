@@ -52,8 +52,6 @@ public class TripRepositoryImpl implements TripRepository {
                 .withKeyConditionExpression("id = :v1 and begins_with(user_id, :v2)")
                 .withExpressionAttributeValues(eav);
 
-        var trips = mapper.query(Trip.class, queryExpression);
-        
-        return trips;
+        return mapper.query(Trip.class, queryExpression);
     }
 }

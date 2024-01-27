@@ -40,7 +40,7 @@ public class TripControllerImpl implements TripController {
     }
 
     @Override
-    public ResponseEntity<List<Trip>> listAll(String pk, String sk) {
+    public ResponseEntity<List<TripByIdDTO>> listAll(String pk, String sk) {
         return ResponseEntity.ok(tripService.listAll(pk, sk));
     }
 }

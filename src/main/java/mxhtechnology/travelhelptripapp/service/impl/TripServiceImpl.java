@@ -7,6 +7,8 @@ import mxhtechnology.travelhelptripapp.infrastructure.aws.dynamodb.repository.Tr
 import mxhtechnology.travelhelptripapp.service.TripService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,15 +40,7 @@ public class TripServiceImpl implements TripService {
     public TripByIdDTO findById(String id, String userId) {
         var trip = tripRepository.findById(id, userId);
         if (trip != null){
-            var dto = new TripByIdDTO();
-            dto.setCountry(trip.getCountry());
-            dto.setState(trip.getState());
-            dto.setCity(trip.getCity());
-            dto.setTripName(trip.getTripName());
-            dto.setObservations(trip.getObservations());
-            dto.setDateEnd(trip.getDateEnd());
-            dto.setDateStart(trip.getDateStart());
-            return dto;
+            return buildTripDTO(trip);
         }
         return null;
     }
@@ -60,7 +54,30 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Trip> listAll(String pk, String sk) {
-        return tripRepository.listByUser(pk, sk);
+    public List<TripByIdDTO> listAll(String pk, String sk) {
+        //var trips = tripRepository.listByUser(pk, sk);
+        List<TripByIdDTO> listTrips = new ArrayList<>();
+
+        var trips = tripRepository.listByUser(pk, sk);
+        trips.forEach(trip -> {
+            var dto = buildTripDTO(trip);
+            listTrips.add(dto);
+        });
+
+        return listTrips;
+    }
+
+    private static TripByIdDTO buildTripDTO(Trip trip) {
+        var dto = new TripByIdDTO();
+        dto.setCountry(trip.getCountry());
+        dto.setState(trip.getState());
+        dto.setCity(trip.getCity());
+        dto.setTripName(trip.getTripName());
+        dto.setObservations(trip.getObservations());
+        dto.setDateEnd(trip.getDateEnd());
+        dto.setDateStart(trip.getDateStart());
+        if(trip.getItineraries() == null)
+            dto.setItineraries(List.of());
+        return dto;
     }
 }

@@ -14,5 +14,5 @@ public interface TripService{
 
     void deleteTrip(String id, String user);
 
-    List<Trip> listAll(String pk, String sk);
+    List<TripByIdDTO> listAll(String pk, String sk);
 }

@@ -3,6 +3,8 @@ package mxhtechnology.travelhelptripapp.entity;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import lombok.*;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -29,5 +31,5 @@ public class Trip {
     private String dateEnd;
     //@DynamoDBAttribute(attributeName = "observations")
     private String observations;
-    //private List<Itinerary> itineraries;
+    private List<Itinerary> itineraries;
 }

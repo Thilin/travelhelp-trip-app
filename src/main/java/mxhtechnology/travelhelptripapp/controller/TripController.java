@@ -39,5 +39,5 @@ public interface TripController {
             @RequestParam String userId);
 
     @GetMapping(value = "/list")
-    ResponseEntity<List<Trip>> listAll(@RequestParam String pk, @RequestParam String sk);
+    ResponseEntity<List<TripByIdDTO>> listAll(@RequestParam String pk, @RequestParam String sk);
 }

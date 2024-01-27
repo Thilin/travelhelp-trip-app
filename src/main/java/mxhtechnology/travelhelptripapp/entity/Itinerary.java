@@ -1,4 +1,4 @@
-/*package mxhtechnology.travelhelptripapp.entity;
+package mxhtechnology.travelhelptripapp.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -16,4 +16,3 @@ public class Itinerary {
     private String state;
     private String city;
 }
-*/

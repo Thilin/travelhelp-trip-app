@@ -3,6 +3,9 @@ package mxhtechnology.travelhelptripapp.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import mxhtechnology.travelhelptripapp.entity.Itinerary;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -37,6 +40,6 @@ public class TripByIdDTO {
     @NotEmpty
     private String observations;
 
-/*    @Schema(example = "Amazonas Theatre", description = "A List of the itinerary")
-    private List<Itinerary> itineraries;*/
+    @Schema(example = "Amazonas Theatre", description = "A List of the itinerary")
+    private List<Itinerary> itineraries;
 }
